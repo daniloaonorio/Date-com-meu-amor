@@ -7,6 +7,8 @@
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
@@ -17,8 +19,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            margin: 0;
-            overflow: hidden; /* Impede barras de rolagem enquanto o botão foge */
+            overflow: hidden; /* Evita que o botão crie barras de rolagem */
             padding: 20px;
         }
 
@@ -30,10 +31,10 @@
             text-align: center;
             max-width: 500px;
             width: 100%;
-            display: none; /* Controlado via JavaScript */
+            display: none; /* Controlado via JS */
             flex-direction: column;
             align-items: center;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         .card.active {
@@ -72,45 +73,46 @@
             transform: translateY(-2px);
         }
 
-        /* Container especial para a tela de fuga */
-        .container-botoes-fuga {
+        /* Área dos botões Sim e Não totalmente reformulada */
+        .area-botoes-safados {
             position: relative;
             width: 100%;
-            height: 120px;
+            height: 160px;
             margin-top: 20px;
         }
 
         #btn-sim-safado {
             background-color: #28a745;
             color: white;
-            position: absolute;
-            left: 10%;
-            top: 30px;
-            z-index: 100;
             padding: 15px 25px;
+            position: absolute;
+            left: 5%;
+            top: 50px;
+            z-index: 10;
+            width: 42%;
         }
 
         #btn-nao-fujao {
             background-color: #dc3545;
             color: white;
-            position: absolute;
-            right: 10%;
-            top: 30px;
-            z-index: 100;
             padding: 15px 25px;
-            transition: left 0.1s ease, top 0.1s ease;
+            position: absolute;
+            right: 5%;
+            top: 50px;
+            z-index: 999;
+            width: 42%;
         }
 
-        /* Efeito de luz vermelha de fundo que será animado via JS */
+        /* Animação do brilho vermelho de fundo */
         @keyframes pulsarVermelho {
-            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.6); }
-            50% { box-shadow: 0 0 40px rgba(255, 0, 0, 1); background-color: #ff1e1e; }
-            100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.6); }
+            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 40px #ff0000; background-color: #ff1e1e; }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
         }
 
         .midia-resultado {
             max-width: 100%;
-            max-height: 300px;
+            max-height: 280px;
             border-radius: 15px;
             margin-top: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
@@ -126,7 +128,7 @@
 <body>
 
     <div id="passo1" class="card active">
-        <h1>Amor da minha vida todinha, hoje é nosso dia de chameguin. 😍<br><br>O que faremos primeiro hoje?</h1>
+        <h1>Amor da minha vida todinha, hoje é nosso dia de chameguin. 😍<br><br>Escolha o nosso roteiro para essa noite mágica:</h1>
         <div class="btn-lista">
             <button onclick="irPara('passo2_massagem')">A) Massagem (com ou sem final feliz, a gosto da freguesa)</button>
             <button onclick="irPara('passo2_outros')">B) Jogos</button>
@@ -168,106 +170,37 @@
     </div>
 
     <div id="passo_chris" class="card">
-        <h1>Excelente escolha! Sabia que ias mudar de ideia! 🥳</h1>
-        <img src="final feliz.jpg" alt="Final Feliz" class="midia-resultado">
+        <h1>Excelente decisão! Sabia que ia escolher o certo! 🥳</h1>
+        <img src="final feliz.jpg" alt="Final Feliz Sempre" class="midia-resultado">
         <div class="btn-lista" style="margin-top: 20px;">
-            <button onclick="irPara('passo_safado')">Avançar 👉🏾👌🏾</button>
+            <button onclick="irPara('passo_safado')">Avançar para o nosso momento 👉🏾👌🏾</button>
         </div>
     </div>
 
     <div id="passo_chatita" class="card">
         <h1>Ok... :(</h1>
         <div class="btn-lista" style="margin-top: 20px;">
-            <button onclick="irPara('passo1')">Recomeçar e escolher melhor! 😂</button>
+            <button onclick="irPara('passo1')">Recomeçar (e escolher melhor) 😂</button>
         </div>
     </div>
 
     <div id="passo_safado" class="card">
         <h1>Hmmm, muito bem escolhido... Já que já estamos aqui, bora? 👉🏾👌🏾</h1>
-        <div class="container-botoes-fuga">
+        <div class="area-botoes-safados">
             <button id="btn-sim-safado" onclick="irPara('passo_final')">Por que não? Vamos tentar!</button>
-            <button id="btn-nao-fujao" onmouseover="fugir()" onclick="fugir()">Não</button>
+            <button id="btn-nao-fujao" onmouseover="fugir()" onclick="fugir()" ontouchstart="fugir()">Não</button>
         </div>
     </div>
 
     <div id="passo_final" class="card">
         <h1>Eba, já que você topou tão voluntariamente, vamos fazer essa noite ser especial!<br>Estou te esperando! 🥳🔥</h1>
-        <img src="https://media.tenor.com/EGl6fbeZf7YAAAAC/ronaldinho-tongue.gif" alt="Ronaldinho Gaúcho" class="midia-resultado">
+        <img src="https://media.tenor.com/EGl6fbeZf7YAAAAC/ronaldinho-tongue.gif" alt="Ronaldinho" class="midia-resultado">
     </div>
 
     <script>
-        let primeirafuga = true;
-        let tempoPisca = 2000; // Começa a piscar a cada 2 segundos (2000ms)
-        let loopAcelerador;
+        let primeiraTentativaNao = true;
+        let tempoPisca = 2000;
+        let temporizadorLuz;
 
         function irPara(idPasso) {
-            // Esconde todas as telas
-            document.querySelectorAll('.card').forEach(card => {
-                card.classList.remove('active');
-            });
-            
-            // Mostra a tela pretendida
-            document.getElementById(idPasso).classList.add('active');
-
-            // Se voltar ou entrar na tela de fuga, faz o reset do botão "Não" para a posição inicial
-            if (idPasso === 'passo_safado') {
-                const naoBtn = document.getElementById('btn-nao-fujao');
-                naoBtn.style.position = 'absolute';
-                naoBtn.style.left = '';
-                naoBtn.style.top = '30px';
-                naoBtn.style.right = '10%';
-                
-                // Reseta variáveis da luz vermelha
-                primeirafuga = true;
-                tempoPisca = 2000;
-                document.getElementById('btn-sim-safado').style.animation = 'none';
-                clearTimeout(loopAcelerador);
-            }
-        }
-
-        // Função mágica que faz o botão NÃO fugir pelo ecrã inteiro
-        function fugir() {
-            const botaoNao = document.getElementById('btn-nao-fujao');
-            
-            // Transforma em posição fixa para voar livremente pela tela inteira do navegador
-            botaoNao.style.position = 'fixed';
-
-            // Calcula posições aleatórias seguras dentro da janela do utilizador
-            const larguraMax = window.innerWidth - botaoNao.clientWidth - 20;
-            const alturaMax = window.innerHeight - botaoNao.clientHeight - 20;
-
-            const novoX = Math.max(10, Math.floor(Math.random() * larguraMax));
-            const novoY = Math.max(10, Math.floor(Math.random() * alturaMax));
-
-            botaoNao.style.left = novoX + "px";
-            botaoNao.style.top = novoY + "px";
-
-            // Se for a primeira vez que ela tenta tocar no "Não", ativa a luz piscante no "Sim"
-            if (primeirafuga) {
-                primeirafuga = false;
-                controlarLuzVermelha();
-            }
-        }
-
-        // Faz o Realce Vermelho piscar e acelerar a cada 2 segundos
-        function controlarLuzVermelha() {
-            const btnSim = document.getElementById('btn-sim-safado');
-            
-            function atualizarAnimacao() {
-                // Atualiza a velocidade da animação CSS com base no tempo atual
-                btnSim.style.animation = `pulsarVermelho ${tempoPisca / 1000}s infinite ease-in-out`;
-                
-                // Reduz o tempo de pisca (torna mais rápido) a cada ciclo de 2 segundos
-                loopAcelerador = setTimeout(() => {
-                    if (tempoPisca > 150) { // Limite máximo de velocidade frenética
-                        tempoPisca -= 300; // Encurta o intervalo do pisca
-                    }
-                    atualizarAnimacao();
-                }, 2000);
-            }
-
-            atualizarAnimacao();
-        }
-    </script>
-</body>
-</html>
+            document.querySelectorAll('.card').forEach(
