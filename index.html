@@ -19,7 +19,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow: hidden; /* Evita que o botão crie barras de rolagem */
+            overflow: hidden; /* Evita barras de rolagem */
             padding: 20px;
         }
 
@@ -62,7 +62,7 @@
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.2s;
+            transition: background-color 0.2s, transform 0.1s;
             background-color: #f8f9fa;
             color: #333;
             border: 2px solid #ddd;
@@ -73,12 +73,15 @@
             transform: translateY(-2px);
         }
 
-        /* Área dos botões Sim e Não totalmente reformulada */
+        /* Área dos botões Sim e Não */
         .area-botoes-safados {
             position: relative;
             width: 100%;
-            height: 160px;
+            height: 140px;
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #btn-sim-safado {
@@ -87,26 +90,29 @@
             padding: 15px 25px;
             position: absolute;
             left: 5%;
-            top: 50px;
+            top: 40px;
             z-index: 10;
-            width: 42%;
+            width: 55%; /* Dá destaque para o Sim */
         }
 
         #btn-nao-fujao {
             background-color: #dc3545;
             color: white;
-            padding: 15px 25px;
+            padding: 10px 15px; /* Menor para ficar difícil de clicar */
+            font-size: 14px;
             position: absolute;
             right: 5%;
-            top: 50px;
+            top: 45px;
             z-index: 999;
-            width: 42%;
+            width: 80px; /* Tamanho fixo travado para nunca esticar! */
+            border-radius: 8px;
+            transition: left 0.08s ease-out, top 0.08s ease-out; /* Fuga mais rápida */
         }
 
-        /* Animação do brilho vermelho de fundo */
+        /* Animação da luz vermelha piscante de fundo */
         @keyframes pulsarVermelho {
             0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
-            50% { box-shadow: 0 0 40px #ff0000; background-color: #ff1e1e; }
+            50% { box-shadow: 0 0 45px #ff0000; background-color: #ff1e1e; }
             100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
         }
 
@@ -203,4 +209,68 @@
         let temporizadorLuz;
 
         function irPara(idPasso) {
-            document.querySelectorAll('.card').forEach(
+            document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+            document.getElementById(idPasso).classList.add('active');
+
+            if (idPasso === 'passo_safado') {
+                const simBtn = document.getElementById('btn-sim-safado');
+                const naoBtn = document.getElementById('btn-nao-fujao');
+                
+                // Reseta posições iniciais limpas
+                naoBtn.style.position = 'absolute';
+                naoBtn.style.left = '';
+                naoBtn.style.right = '5%';
+                naoBtn.style.top = '45px';
+
+                simBtn.style.left = '5%';
+                simBtn.style.top = '40px';
+                
+                primeiraTentativaNao = true;
+                tempoPisca = 2000;
+                simBtn.style.animation = 'none';
+                clearTimeout(temporizadorLuz);
+            }
+        }
+
+        function fugir() {
+            const botaoNao = document.getElementById('btn-nao-fujao');
+            
+            // Passa para fixed para se mover livremente na tela inteira
+            botaoNao.style.position = 'fixed';
+
+            // Limites dinâmicos baseados no tamanho real da tela visível
+            const larguraMax = window.innerWidth - botaoNao.offsetWidth - 15;
+            const alturaMax = window.innerHeight - botaoNao.offsetHeight - 15;
+
+            // Gera as coordenadas aleatórias
+            const aleatorioX = Math.max(15, Math.floor(Math.random() * larguraMax));
+            const aleatorioY = Math.max(15, Math.floor(Math.random() * alturaMax));
+
+            botaoNao.style.left = aleatorioX + 'px';
+            botaoNao.style.top = aleatorioY + 'px';
+
+            // Dispara a aceleração da luz piscante no Sim
+            if (primeiraTentativaNao) {
+                primeiraTentativaNao = false;
+                gerenciarLuz();
+            }
+        }
+
+        function gerenciarLuz() {
+            const btnSim = document.getElementById('btn-sim-safado');
+            
+            function acelerar() {
+                btnSim.style.animation = `pulsarVermelho ${tempoPisca / 1000}s infinite ease-in-out`;
+                
+                temporizadorLuz = setTimeout(() => {
+                    if (tempoPisca > 200) {
+                        tempoPisca -= 300;
+                    }
+                    acelerar();
+                }, 2000);
+            }
+            acelerar();
+        }
+    </script>
+</body>
+</html>
