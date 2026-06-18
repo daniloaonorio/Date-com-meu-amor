@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quer sair comigo?</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6eb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #d63384;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .container-botoes {
+            position: relative;
+            width: 300px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #sim {
+            background-color: #28a745;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        #sim:hover {
+            background-color: #218838;
+            transform: scale(1.1);
+        }
+
+        #nao {
+            background-color: #dc3545;
+            color: white;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quer sair comigo? ❤️</h1>
+
+    <div class="container-botoes">
+        <button id="sim" onclick="aceitar()">Sim!</button>
+        <button id="nao" onmouseover="fugir()">Não</button>
+    </div>
+
+    <script>
+        function aceitar() {
+            alert("SABIA! 😍 Nosso encontro já está marcado!");
+            // Se quiser que vá para outro site/link, descomente a linha abaixo:
+            // window.location.href = "seu-link-aqui.com";
+        }
+
+        function fugir() {
+            const botaoNao = document.getElementById('nao');
+            
+            // Pega a largura e altura da tela
+            const larguraMax = window.innerWidth - 100;
+            const alturaMax = window.innerHeight - 100;
+            
+            // Gera uma posição aleatória para o botão
+            const novoX = Math.floor(Math.random() * larguraMax);
+            const novoY = Math.floor(Math.random() * alturaMax);
+            
+            // Aplica a nova posição
+            botaoNao.style.left = novoX + "px";
+            botaoNao.style.top = novoY + "px";
+        }
+    </script>
+</body>
+</html>
