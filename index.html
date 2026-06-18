@@ -133,6 +133,15 @@
             object-fit: contain;
         }
 
+        /* Container para ajustar o embed do Tenor */
+        .tenor-container {
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -194,4 +203,98 @@
     <div id="passo_chatita" class="card">
         <h1>Ok... :(</h1>
         <div class="btn-lista" style="margin-top: 20px;">
-            <button
+            <button class="btn-opcao" onclick="irPara('passo1')">Recomeçar (e escolher melhor) 😂</button>
+        </div>
+    </div>
+
+    <div id="passo_safado" class="card">
+        <h1>Hmmm, muito bem escolhido... Já que já estamos aqui, bora? 👉🏾👌🏾</h1>
+        <div class="area-botoes-safados">
+            <button id="btn-sim-safado" onclick="irPara('passo_final')">Por que não? Vamos tentar!</button>
+            <button id="btn-nao-fujao" onmouseover="fugir()" onclick="fugir()" ontouchstart="fugir()">Não</button>
+        </div>
+    </div>
+
+    <div id="passo_final" class="card">
+        <h1>Eba, já que você topou tão voluntariamente, vamos fazer essa noite ser especial!<br>Estou te esperando! 🥳🔥</h1>
+        
+        <div class="tenor-container">
+            <div class="tenor-gif-embed" data-postid="23905918" data-share-method="host" data-aspect-ratio="1.78771" data-width="100%">
+                <a href="https://tenor.com/view/ronaldinho-tongue-gif-23905918">Ronaldinho Tongue GIF</a> do 
+                <a href="https://tenor.com/search/ronaldinho+tongue-gifs">Ronaldinho Tongue GIFs</a>
+            </div>
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        </div>
+    </div>
+
+    <script>
+        let primeiraTentativaNao = true;
+        let tempoPisca = 2000;
+        let temporizadorLuz;
+
+        function irPara(idPasso) {
+            document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+            document.getElementById(idPasso).classList.add('active');
+
+            if (idPasso === 'passo_safado') {
+                const simBtn = document.getElementById('btn-sim-safado');
+                const naoBtn = document.getElementById('btn-nao-fujao');
+                
+                // Reseta posições iniciais limpas
+                naoBtn.style.position = 'absolute';
+                naoBtn.style.left = '';
+                naoBtn.style.right = '5%';
+                naoBtn.style.top = '45px';
+
+                simBtn.style.left = '5%';
+                simBtn.style.top = '40px';
+                
+                primeiraTentativaNao = true;
+                tempoPisca = 2000;
+                simBtn.style.animation = 'none';
+                clearTimeout(temporizadorLuz);
+            }
+        }
+
+        function fugir() {
+            const botaoNao = document.getElementById('btn-nao-fujao');
+            
+            // Passa para fixed para se mover livremente na tela inteira
+            botaoNao.style.position = 'fixed';
+
+            // Limites dinâmicos baseados no tamanho real da tela visível
+            const larguraMax = window.innerWidth - botaoNao.offsetWidth - 15;
+            const alturaMax = window.innerHeight - botaoNao.offsetHeight - 15;
+
+            // Gera as coordenadas aleatórias
+            const aleatorioX = Math.max(15, Math.floor(Math.random() * larguraMax));
+            const aleatorioY = Math.max(15, Math.floor(Math.random() * alturaMax));
+
+            botaoNao.style.left = aleatorioX + 'px';
+            botaoNao.style.top = aleatorioY + 'px';
+
+            // Dispara a aceleração da luz piscante no Sim
+            if (primeiraTentativaNao) {
+                primeiraTentativaNao = false;
+                gerenciarLuz();
+            }
+        }
+
+        function gerenciarLuz() {
+            const btnSim = document.getElementById('btn-sim-safado');
+            
+            function acelerar() {
+                btnSim.style.animation = `pulsarVermelho ${tempoPisca / 1000}s infinite ease-in-out`;
+                
+                temporizadorLuz = setTimeout(() => {
+                    if (tempoPisca > 200) {
+                        tempoPisca -= 300;
+                    }
+                    acelerar();
+                }, 2000);
+            }
+            acelerar();
+        }
+    </script>
+</body>
+</html>
