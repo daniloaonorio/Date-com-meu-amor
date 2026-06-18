@@ -55,7 +55,8 @@
             width: 100%;
         }
 
-        button {
+        /* Botões normais de escolhas */
+        .btn-opcao {
             padding: 15px 20px;
             font-size: 16px;
             font-weight: bold;
@@ -66,50 +67,57 @@
             background-color: #f8f9fa;
             color: #333;
             border: 2px solid #ddd;
+            width: 100%;
+            display: block;
         }
 
-        button:hover {
+        .btn-opcao:hover {
             background-color: #e2e6ea;
             transform: translateY(-2px);
         }
 
-        /* Área dos botões Sim e Não */
+        /* Área exclusiva dos botões Sim e Não na tela de fuga */
         .area-botoes-safados {
             position: relative;
             width: 100%;
             height: 140px;
             margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         #btn-sim-safado {
             background-color: #28a745;
             color: white;
             padding: 15px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
             position: absolute;
             left: 5%;
             top: 40px;
             z-index: 10;
-            width: 55%; /* Dá destaque para o Sim */
+            width: 55%;
         }
 
         #btn-nao-fujao {
             background-color: #dc3545;
             color: white;
-            padding: 10px 15px; /* Menor para ficar difícil de clicar */
+            padding: 10px 15px;
             font-size: 14px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
             position: absolute;
             right: 5%;
             top: 45px;
             z-index: 999;
-            width: 80px; /* Tamanho fixo travado para nunca esticar! */
+            width: 80px; /* Tamanho fixo e pequeno para não esticar */
             border-radius: 8px;
-            transition: left 0.08s ease-out, top 0.08s ease-out; /* Fuga mais rápida */
+            transition: left 0.08s ease-out, top 0.08s ease-out;
         }
 
-        /* Animação da luz vermelha piscante de fundo */
+        /* Animação do realce vermelho de fundo */
         @keyframes pulsarVermelho {
             0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
             50% { box-shadow: 0 0 45px #ff0000; background-color: #ff1e1e; }
@@ -136,42 +144,42 @@
     <div id="passo1" class="card active">
         <h1>Amor da minha vida todinha, hoje é nosso dia de chameguin. 😍<br><br>Escolha o nosso roteiro para essa noite mágica:</h1>
         <div class="btn-lista">
-            <button onclick="irPara('passo2_massagem')">A) Massagem (com ou sem final feliz, a gosto da freguesa)</button>
-            <button onclick="irPara('passo2_outros')">B) Jogos</button>
-            <button onclick="irPara('passo2_outros')">C) Cozinhar</button>
+            <button class="btn-opcao" onclick="irPara('passo2_massagem')">A) Massagem (com ou sem final feliz, a gosto da freguesa)</button>
+            <button class="btn-opcao" onclick="irPara('passo2_outros')">B) Jogos</button>
+            <button class="btn-opcao" onclick="irPara('passo2_outros')">C) Cozinhar</button>
         </div>
     </div>
 
     <div id="passo2_massagem" class="card">
         <h1>Hmmmmm, boa escolha.</h1>
         <div class="btn-lista">
-            <button onclick="irPara('passo_safado')">A) Com final feliz</button>
-            <button onclick="irPara('passo_certeza_1')">B) Sem final feliz</button>
+            <button class="btn-opcao" onclick="irPara('passo_safado')">A) Com final feliz</button>
+            <button class="btn-opcao" onclick="irPara('passo_certeza_1')">B) Sem final feliz</button>
         </div>
     </div>
 
     <div id="passo2_outros" class="card">
         <h1>E depois?</h1>
         <div class="btn-lista">
-            <button onclick="irPara('passo2_massagem')">A) Massagem</button>
-            <button onclick="irPara('passo_safado')">B) Sexo selvagem</button>
-            <button onclick="irPara('passo_safado')">C) Amorzinho cadenciado</button>
+            <button class="btn-opcao" onclick="irPara('passo2_massagem')">A) Massagem</button>
+            <button class="btn-opcao" onclick="irPara('passo_safado')">B) Sexo selvagem</button>
+            <button class="btn-opcao" onclick="irPara('passo_safado')">C) Amorzinho cadenciado</button>
         </div>
     </div>
 
     <div id="passo_certeza_1" class="card">
         <h1>Tem certeza?</h1>
         <div class="btn-lista">
-            <button onclick="irPara('passo_certeza_2')">Sim</button>
-            <button onclick="irPara('passo2_massagem')">Não</button>
+            <button class="btn-opcao" onclick="irPara('passo_certeza_2')">Sim</button>
+            <button class="btn-opcao" onclick="irPara('passo2_massagem')">Não</button>
         </div>
     </div>
 
     <div id="passo_certeza_2" class="card">
         <h1>Certeza absoluta? Última vez que eu pergunto, ein?</h1>
         <div class="btn-lista">
-            <button onclick="irPara('passo_chris')">Mudei de ideia, final feliz hoje, final feliz amanhã, final feliz para sempre</button>
-            <button onclick="irPara('passo_chatita')">Não mudei de ideia, soy una chatita</button>
+            <button class="btn-opcao" onclick="irPara('passo_chris')">Mudei de ideia, final feliz hoje, final feliz amanhã, final feliz para sempre</button>
+            <button class="btn-opcao" onclick="irPara('passo_chatita')">Não mudei de ideia, soy una chatita</button>
         </div>
     </div>
 
@@ -179,98 +187,11 @@
         <h1>Excelente decisão! Sabia que ia escolher o certo! 🥳</h1>
         <img src="final feliz.jpg" alt="Final Feliz Sempre" class="midia-resultado">
         <div class="btn-lista" style="margin-top: 20px;">
-            <button onclick="irPara('passo_safado')">Avançar para o nosso momento 👉🏾👌🏾</button>
+            <button class="btn-opcao" onclick="irPara('passo_safado')">Avançar para o nosso momento 👉🏾👌🏾</button>
         </div>
     </div>
 
     <div id="passo_chatita" class="card">
         <h1>Ok... :(</h1>
         <div class="btn-lista" style="margin-top: 20px;">
-            <button onclick="irPara('passo1')">Recomeçar (e escolher melhor) 😂</button>
-        </div>
-    </div>
-
-    <div id="passo_safado" class="card">
-        <h1>Hmmm, muito bem escolhido... Já que já estamos aqui, bora? 👉🏾👌🏾</h1>
-        <div class="area-botoes-safados">
-            <button id="btn-sim-safado" onclick="irPara('passo_final')">Por que não? Vamos tentar!</button>
-            <button id="btn-nao-fujao" onmouseover="fugir()" onclick="fugir()" ontouchstart="fugir()">Não</button>
-        </div>
-    </div>
-
-    <div id="passo_final" class="card">
-        <h1>Eba, já que você topou tão voluntariamente, vamos fazer essa noite ser especial!<br>Estou te esperando! 🥳🔥</h1>
-        <img src="https://media.tenor.com/EGl6fbeZf7YAAAAC/ronaldinho-tongue.gif" alt="Ronaldinho" class="midia-resultado">
-    </div>
-
-    <script>
-        let primeiraTentativaNao = true;
-        let tempoPisca = 2000;
-        let temporizadorLuz;
-
-        function irPara(idPasso) {
-            document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
-            document.getElementById(idPasso).classList.add('active');
-
-            if (idPasso === 'passo_safado') {
-                const simBtn = document.getElementById('btn-sim-safado');
-                const naoBtn = document.getElementById('btn-nao-fujao');
-                
-                // Reseta posições iniciais limpas
-                naoBtn.style.position = 'absolute';
-                naoBtn.style.left = '';
-                naoBtn.style.right = '5%';
-                naoBtn.style.top = '45px';
-
-                simBtn.style.left = '5%';
-                simBtn.style.top = '40px';
-                
-                primeiraTentativaNao = true;
-                tempoPisca = 2000;
-                simBtn.style.animation = 'none';
-                clearTimeout(temporizadorLuz);
-            }
-        }
-
-        function fugir() {
-            const botaoNao = document.getElementById('btn-nao-fujao');
-            
-            // Passa para fixed para se mover livremente na tela inteira
-            botaoNao.style.position = 'fixed';
-
-            // Limites dinâmicos baseados no tamanho real da tela visível
-            const larguraMax = window.innerWidth - botaoNao.offsetWidth - 15;
-            const alturaMax = window.innerHeight - botaoNao.offsetHeight - 15;
-
-            // Gera as coordenadas aleatórias
-            const aleatorioX = Math.max(15, Math.floor(Math.random() * larguraMax));
-            const aleatorioY = Math.max(15, Math.floor(Math.random() * alturaMax));
-
-            botaoNao.style.left = aleatorioX + 'px';
-            botaoNao.style.top = aleatorioY + 'px';
-
-            // Dispara a aceleração da luz piscante no Sim
-            if (primeiraTentativaNao) {
-                primeiraTentativaNao = false;
-                gerenciarLuz();
-            }
-        }
-
-        function gerenciarLuz() {
-            const btnSim = document.getElementById('btn-sim-safado');
-            
-            function acelerar() {
-                btnSim.style.animation = `pulsarVermelho ${tempoPisca / 1000}s infinite ease-in-out`;
-                
-                temporizadorLuz = setTimeout(() => {
-                    if (tempoPisca > 200) {
-                        tempoPisca -= 300;
-                    }
-                    acelerar();
-                }, 2000);
-            }
-            acelerar();
-        }
-    </script>
-</body>
-</html>
+            <button
